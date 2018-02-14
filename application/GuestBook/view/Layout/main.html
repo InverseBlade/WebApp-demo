@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#2196f3">
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap:">
+    <title>留言簿</title>
+    <link rel="stylesheet" href="__FRAMEWORK7__/css/framework7.min.css">
+    <link rel="stylesheet" href="__GUESTBOOK__/css/guestbook.main.css">
+    {block name="style"}{/block}
+</head>
+<body>
+<!-- App root element -->
+<div id="app">
+    <div class="statusbar"></div>
+    {block name="left-panel"}{/block}
+    {block name="right-panel"}{/block}
+    <!-- Your main view, should have "view-main" class -->
+    {block name="content"}{/block}
+</div>
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="__FRAMEWORK7__/js/framework7.min.js"></script>
+<script type="text/javascript" src="__GUESTBOOK__/js/routes.js"></script>
+<!-- Path to your app js-->
+<script type="text/javascript" src="__GUESTBOOK__/js/guestbook.main.js"></script>
+{block name="script"}{/block}
+</body>
+</html>

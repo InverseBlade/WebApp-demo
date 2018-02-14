@@ -1,0 +1,147 @@
+{extend name="Layout/main" /}
+
+{block name="style"}
+    <link rel="stylesheet" type="text/css" href="__GUESTBOOK__/css/login.css" />
+{/block}
+
+{block name="left-panel"}
+<div class="panel panel-left panel-cover">
+    <div class="page" data-name="">
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="panel-close">
+                        <i class="icon icon-back"></i>
+                        <span class="ios-only">收回</span>
+                    </a>
+                </div>
+                <div class="title">About 留言簿</div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="block-title">欢迎来到留言簿</div>
+            <div class="block">
+                <p>留言
+                    维基百科，自由的百科全书
+                    有关电视连续剧，请参阅留言簿。</p>
+
+                <p>本文需要额外的引文进行验证。请通过在可靠来源中添加引文来帮助改进本文。无法查证的内容可能被提出异议而移除。 （2014年7月） （了解如何以及何时删除此模板消息）
+                    在维基词典中查找留言簿，免费词典。</p>
+
+                <p>挪威国防部长Anne-GreteStrøm-Erichsen在2007年在五角大楼签署了一份留言
+                    一个留言板（也留言簿上，访问者日志，留言簿，参观者专辑）是纸质或电子方式访客确认到一个站点，物理或基于Web的访问，并留下这样的细节如姓名，邮寄或电子地址和任何意见。这种纸质账本或书籍在教堂，婚礼，葬礼，民宿，博物馆，学校，机构中都是传统的和其他私人设施向公众开放。一些私人住宅保存游客的书籍。专门形式的留言簿包括酒店登记册，其中要求客人提供他们的联络信息，以及殡仪馆，在殡仪馆以及更普遍地在公众死亡之后使用，例如君主或总统的死亡，或者在公共灾难，如飞机坠毁。</p>
+            </div>
+            <div class="block">
+                <p>来自以色列国家图书馆举办的Salant酒店的留言
+                    在网络上，留言簿是允许网站的访问者留下公众评论的日志记录系统。[1]访客可以在一些留言板上表达他们对网站或其主题的想法。一般来说，他们不需要海报来创建一个用户帐户，因为这是一个非正式的方法来删除一个快速的消息。网站留言簿的目的是显示网站访问者的类型，包括他们居住的世界的一部分，并获得他们的反馈。这使网站管理员可以评估和改进他们的网站。一个留言本通常是一个脚本，通常是远程托管和用Perl，PHP等语言编写的，Python或ASP。存在许多免费的留言主机和脚本。</p>
+
+                <p>言簿中提供的姓名和地址，纸质或电子形式，经常被记录和整理，用于提供关于网站访问者的统计数据，以及将来访问网站的访问者。</p>
+
+                <p>另见
+                    维基共享资源有与留言簿相关的媒体。
+                    放下顶部的留言簿
+                    留言垃圾邮件
+                    参考
+                    福特，小杰里（2011）。在周末增加您的网络流量。圣智学习。页。272</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="content"}
+<div class="view view-main view-init ios-edges">
+    <div class="page no-toolbar no-navbar no-swipeback" data-name="signin">
+        <div class="page-content login-screen-content">
+            <span class="tag-left"><a class="link panel-open" data-panel="left" href="#">关于</a> </span>
+            <span class="tag-right"><a class="link" href="/signup/">注册</a> </span>
+            <div class="login-screen-title">
+                留言簿
+            </div>
+            <form name="login">
+                <div class="list">
+                    <ul>
+                        <li class="item-content item-input item-input-with-value">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Username:</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" placeholder="用户名" id="uname" class="input-with-value" required>
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content item-input">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Password:</div>
+                                <div class="item-input-wrap">
+                                    <input type="password" placeholder="密码" id="password" class="" required>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="block">
+                    <div class="row">
+                        <button type="submit" class="col button button-big ">登录</button>
+                    </div>
+                    <div class="block-footer">
+                        <div class="row">
+                            <div class="left">忘记密码了?<a class="link modify-popup-open" href="#">点击这里</a></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="block">
+                <?php for($i=0; $i<3; $i++)echo "<div class='row'><br/><br/></div>"; ?>
+                <!--<div class="block-footer">登录即代表阅读并同意<a class="link">服务条款</a> </div>-->
+            <div class="block-footer">Powered By Token Team</div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/template7" id="modify-template">
+    <div class="popup">
+        <div class="view view-init view-modify" data-name="modify">
+            <div class="page" data-name="modify-uname">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="title">密码找回</div>
+                        <div class="right">
+                            <a class="link popup-close" href="#">关闭</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-content">
+                    <div class="block">*请输入要重置密码的用户名</div>
+                    <form>
+                    <div class="list inline-labels no-hairlines-md">
+                        <ul>
+                            <li class="item-content item-input item-input-with-info">
+                                <div class="item-inner">
+                                    <div class="item-title item-label">用户名</div>
+                                    <div class="item-input-wrap">
+                                        <input type="text" placeholder="你的用户名" name="uname" required validate>
+                                        <span class="input-clear-button"></span>
+                                        <div class="item-input-info "><span id="checkUname"></span> </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="block">
+                        <div class="row">
+                            <input type="submit" class="col button button-fill-ios button-big" value="下一步">
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+{/block}
+
+{block name="script"}
+<script type="text/javascript" src="__GUESTBOOK__/js/login.js">
+</script>
+{/block}

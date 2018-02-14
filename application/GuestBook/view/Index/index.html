@@ -1,0 +1,107 @@
+{extend name="Layout/main" /}
+
+{block name="style"}
+{/block}
+
+{block name="left-panel"} {/block}
+{block name="right-panel"} {/block}
+
+{block name="content"}
+<div class="views tabs">
+    <div class="toolbar tabbar tabbar-labels">
+        <div class="toolbar-inner">
+            <a href="#tab-1" class="tab-link tab-link-active">
+                <i class="icon f7-icons ios-only">email</i>
+                <i class="icon icon-fill f7-icons ios-only">email_fill</i>
+                <i class="icon material-icons md-only">email</i>
+                <span class="tabbar-label">广场</span>
+            </a>
+            <a href="#tab-2" class="tab-link">
+                <i class="icon f7-icons ios-only">today<span class="badge color-red">5</span></i>
+                <i class="icon icon-fill f7-icons ios-only">today_fill<span class="badge color-red">5</span></i>
+                <i class="icon material-icons md-only">today<span class="badge color-red">5</span></i>
+                <span class="tabbar-label">发布</span>
+            </a>
+            <a href="#tab-3" class="tab-link">
+                <i class="icon f7-icons ios-only">cloud</i>
+                <i class="icon icon-fill f7-icons ios-only">cloud_fill</i>
+                <i class="icon material-icons md-only">file_upload</i>
+                <span class="tabbar-label">我</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="view view-main ios-edges tab tab-active" id='tab-1'>
+        <div class="page" data-name="home">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="link icon-only panel-open" data-panel="left">
+                            <i class="icon f7-icons ios-only">menu</i>
+                            <i class="icon material-icons md-only">menu</i>
+                        </a>
+                    </div>
+                    <div class="title">广场</div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="block-title">赶快来写自己的第一篇留言吧！</div>
+
+                <a href="/about/">About app</a><br/>
+                <a class="link external" href="/GuestBook/Index/logout">退出登录</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="view view-init ios-edges tab" id='tab-2'>
+        <div class="page">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="link icon-only panel-open" data-panel="left">
+                            <i class="icon f7-icons ios-only">menu</i>
+                            <i class="icon material-icons md-only">menu</i>
+                        </a>
+                    </div>
+                    <div class="title">关注用户</div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="block-title">赶快来写自己的第一篇留言吧！</div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="view view-init ios-edges tab" id='tab-3'>
+        <div class="page">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="left">
+                        <a href="#" class="link icon-only panel-open" data-panel="left">
+                            <i class="icon f7-icons ios-only">menu</i>
+                            <i class="icon material-icons md-only">menu</i>
+                        </a>
+                    </div>
+                    <div class="title">我</div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="block-title">赶快来写自己的第一篇留言吧！</div>
+
+                <a href="/about/">About app</a><br/>
+                <a class="link external" href="/GuestBook/Index/logout">退出登录</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{/block}
+
+{block name="script"}
+<script>
+    Token.message.toast('{$nickname}'+'，欢迎回来...', 'center');
+</script>
+<script type="text/javascript" src="__GUESTBOOK__/js/index.js"></script>
+{/block}
