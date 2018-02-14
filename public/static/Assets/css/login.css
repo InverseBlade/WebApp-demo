@@ -1,0 +1,11 @@
+.tag-left, .tag-right {
+    font-size: 18px;
+    padding: 12px;
+    padding-top: 10px;
+}
+.tag-left {
+    float: left;
+}
+.tag-right {
+    float: right;
+}

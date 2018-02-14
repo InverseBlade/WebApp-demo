@@ -1,0 +1,65 @@
+<div class="page" data-name="modify-info">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="link back">
+                    <i class="icon icon-back"></i>
+                    <span class="ios-only">Back</span>
+                </a>
+            </div>
+            <div class="title">密码找回</div>
+            <div class="right">
+                <a class="link popup-close" href="#">关闭</a>
+            </div>
+        </div>
+    </div>
+    <div class="page-content">
+        <div class="block-title">
+            请按照以下步骤填写信息：
+        </div>
+        <div class="block">
+            <p>*我们将发送一封电子邮件至你的邮箱<span id="t-email"></span>，请输入以下信息来重置你的密码 </p>
+        </div>
+        <form>
+            <div class="list inline-labels no-hairlines-md">
+                <ul>
+                    <li class="item-content item-input item-input-with-info">
+                        <div class="item-inner">
+                            <div class="item-title item-label">验证码</div>
+                            <div class="item-input-wrap">
+                                <input type="text" placeholder="你收到的验证码" name="verify" required validate>
+                                <span class="input-clear-button"></span>
+                            </div>
+                            <div class="item-after"><input type="button" class="col button button-fill" value="点击发送"></div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input item-input-with-info">
+                        <div class="item-inner">
+                            <div class="item-title item-label">新的密码</div>
+                            <div class="item-input-wrap">
+                                <input type="password" placeholder="你的密码，最短6位" name="password" pattern="^.{6,}$" required validate>
+                                <span class="input-clear-button"></span>
+                                <div class="item-input-info "></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="item-content item-input item-input-with-info">
+                        <div class="item-inner">
+                            <div class="item-title item-label">确认密码</div>
+                            <div class="item-input-wrap">
+                                <input type="password" placeholder="确认你的密码" name="repassword" required validate>
+                                <span class="input-clear-button"></span>
+                                <div class="item-input-info "><span id="checkPassword"></span> </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="block">
+                <div class="row">
+                    <button type="submit" class="col button button-fill-ios button-big">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
