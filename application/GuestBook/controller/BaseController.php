@@ -15,8 +15,10 @@ class BaseController extends Controller {
     {
         parent::__construct();
 
-        if($request->controller() == )
-            if(empty(Session::get('identity'))) echo "<script>window.location.replace('/GuestBook/');</script>";
+        if($request->controller() != 'LoginController')
+        {if(empty(Session::get('identity'))) echo "<script>window.location.replace('/GuestBook/');</script>";}
+        else
+            if(!empty(Session::get('identity'))) echo "<script>window.location.replace('/GuestBook/');</script>";
     }
     
     public function apireturn($err_code=0, $err_msg='', $data=null, $status=200) 
