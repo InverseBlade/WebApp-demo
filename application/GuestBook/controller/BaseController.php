@@ -17,5 +17,14 @@ class BaseController extends Controller {
 
         if(empty(Session::get('identity'))) echo "<script>window.location.replace('/GuestBook/');</script>";
     }
+    
+    public function apireturn($err_codecode=0, $err_msg='', $data=[]) 
+    {
+        
+        
+    }
+
+        
+
 
 }
