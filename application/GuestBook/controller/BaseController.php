@@ -11,20 +11,17 @@ use think\Session;
 
 class BaseController extends Controller {
 
-    public function __construct()
+    public function __construct(Request $request = null)
     {
         parent::__construct();
 
-        if(empty(Session::get('identity'))) echo "<script>window.location.replace('/GuestBook/');</script>";
+        if($request->controller() == )
+            if(empty(Session::get('identity'))) echo "<script>window.location.replace('/GuestBook/');</script>";
     }
     
-    public function apireturn($err_codecode=0, $err_msg='', $data=[]) 
+    public function apireturn($err_code=0, $err_msg='', $data=null, $status=200) 
     {
-        
-        
+        return json(['err_code'=>$err_code, 'err_msg'=>$err_msg, 'data'=>$data, $status);
     }
-
-        
-
 
 }
