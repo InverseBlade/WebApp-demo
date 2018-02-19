@@ -23,7 +23,7 @@ class BaseController extends Controller {
     
     public function apireturn($err_code=0, $err_msg='', $data=null, $status=200) 
     {
-        return json(['err_code'=>$err_code, 'err_msg'=>$err_msg, 'data'=>$data, $status);
+        return json(['err_code'=>$err_code, 'err_msg'=>$err_msg, 'data'=>$data, $status]);
     }
 
 }
