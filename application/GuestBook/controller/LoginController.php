@@ -7,7 +7,6 @@
  */
 namespace app\GuestBook\controller;
 use app\GuestBook\model\User as UserModel;
-use think\Controller;
 use think\Exception;
 use think\Request;
 use think\Session;
@@ -25,13 +24,12 @@ use think\Validate;
  * Class LoginController
  * @package app\GuestBook\controller
  */
-class LoginController extends Controller {
+class LoginController extends BaseController {
 
     public function __construct(Request $request = null)
     {
         parent::__construct($request);
 
-        if(!empty(Session::get('identity'))) echo "<script>window.location.replace('/GuestBook/');</script>";
         if(!(strtolower($request->action()) == "signin")){
             if(!$request->isAjax()) exit();
         }
@@ -51,14 +49,15 @@ class LoginController extends Controller {
             if($info){
                 Session::set('identity',$info->identity);
 
-                return json(['err_code'=>0, 'err_msg'=>'success']);
+                return $this->apiReturn(0, 'success');
             }else{
                 Session::clear();
-                return json(['err_code'=>1, 'err_msg'=>'wrong info']);
+
+                return $this->apiReturn(1, 'wrong info');
             }
 
         }catch (Exception $e){
-            return json(['err_code'=>1, 'err_msg'=>'unknown']);
+            return $this->apiReturn(1, 'unknown');
         }
     }
 
@@ -79,10 +78,10 @@ class LoginController extends Controller {
             $len = floor($len / 11 * 5);
             for($i = 0; $i < $len; $i++) $email[(int)($st+$i)] = "*";
 
-            return json(['err_code'=>1, 'err_msg'=>'existed', 'data'=>$email]);
+            return $this->apiReturn(1,'existed', $email);
         }else{
 
-            return json(['err_code'=>0, 'err_msg'=>'none']);
+            return $this->apiReturn(0, 'none');
         }
     }
 
@@ -108,15 +107,15 @@ class LoginController extends Controller {
                     Session::delete('verification');
                     Session::set('identity', $user->identity);
 
-                    return json(['err_code'=>0, 'err_msg'=>'success']);
+                    return $this->apiReturn(0, 'success');
                 }else{
 
-                    return json(['err_code'=>1, 'err_msg'=>'未知错误']);
+                    return $this->apiReturn(1, '未知错误');
                 }
             }
-            return json(['err_code'=>1, 'err_msg'=>'用户不存在']);
+            return $this->apiReturn(1, '用户不存在');
         }
-        return json(['err_code'=>1, 'err_msg'=>'验证码错误']);
+        return $this->apiReturn(1, '验证码错误');
     }
 
     /**
@@ -129,13 +128,13 @@ class LoginController extends Controller {
 
         if(UserModel::where(['identity'=>$post['uname']])->field('id')->find()){
 
-            return json(['err_code'=>1, 'err_msg'=>'existed']);
+            return $this->apiReturn(1, 'existed');
         }else{
             //过滤email
             $email = filter_var($post['email'], FILTER_SANITIZE_EMAIL);
             if(!Validate::is($email, 'email')) {
 
-                return json(['err_code' => 1, 'err_msg' => 'wrong email']);
+                return $this->apiReturn(1, 'wrong email');
             }else{
 
                 empty($post['birth'])? ($post['birth'] = null) : 1;
@@ -146,10 +145,10 @@ class LoginController extends Controller {
                 if($user->allowField(true)->save()){
 
                     Session::set("identity", $post['identity']);
-                    return json(['err_code'=>0, 'err_msg'=>'success']);
+                    return $this->apiReturn(0, 'success');
                 }else{
 
-                    return json(['err_code'=>1, 'err_msg'=>'unknown reason']);
+                    return $this->apiReturn(1, 'unknown reason');
                 }
             }
         }
@@ -165,10 +164,10 @@ class LoginController extends Controller {
 
         if(UserModel::where(['nickname'=>$post['nickname']])->field('id')->find()){
 
-            return json(['err_code'=>1, 'err_msg'=>'existed']);
+            return $this->apiReturn(1, 'existed');
         }else{
 
-            return json(['err_code'=>0, 'err_msg'=>'none']);
+            return $this->apiReturn(0, 'none');
         }
     }
 
@@ -182,7 +181,7 @@ class LoginController extends Controller {
         $info = UserModel::where(['identity'=>$post['uname']])->field('email')->find();
         if(!$info){
 
-            return json(['err_code'=>1, 'err_msg'=>'username not exist']);
+            return $this->apiReturn(1, 'username not exist');
         }else{
             $email = $info->email;
 
@@ -208,9 +207,9 @@ class LoginController extends Controller {
             $state = $smtp->sendmail($smtpemailto, $smtpusermail, $mailtitle, $mailcontent, $mailtype);
             if($state){
                 Session::set('verification', $salt);
-                return json(['err_code'=>0, 'err_msg'=>'success']);
+                return $this->apiReturn(0, 'success');
             }else{
-                return json(['err_code'=>1, 'err_msg'=>'failed']);
+                return $this->apiReturn(1, 'failed');
             }
         }
     }
