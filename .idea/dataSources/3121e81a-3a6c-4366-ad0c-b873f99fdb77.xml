@@ -936,10 +936,13 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="238" parent="6" name="zzw_user">
+    <table id="238" parent="6" name="zzw_essay">
       <Engine>InnoDB</Engine>
     </table>
-    <column id="239" parent="238" name="id">
+    <table id="239" parent="6" name="zzw_user">
+      <Engine>InnoDB</Engine>
+    </table>
+    <column id="240" parent="238" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int(11)|0</DataType>
@@ -947,7 +950,70 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="240" parent="238" name="identity">
+    <column id="241" parent="238" name="topic">
+      <Position>2</Position>
+      <Comment>话题</Comment>
+      <DataType>varchar(35)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="242" parent="238" name="content">
+      <Position>3</Position>
+      <Comment>内容</Comment>
+      <DataType>text|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="243" parent="238" name="create_time">
+      <Position>4</Position>
+      <Comment>创建时间</Comment>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="244" parent="238" name="update_time">
+      <Position>5</Position>
+      <Comment>更新时间</Comment>
+      <DataType>timestamp|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="245" parent="238" name="hash">
+      <Position>6</Position>
+      <Comment>哈希</Comment>
+      <DataType>varchar(12)|0</DataType>
+      <ColumnKind>normal</ColumnKind>
+      <Collation>utf8mb4_bin</Collation>
+    </column>
+    <column id="246" parent="238" name="user_id">
+      <Position>7</Position>
+      <Comment>作者的id</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="247" parent="238" name="status">
+      <Position>8</Position>
+      <Comment>1.显示 2.屏蔽 3.。。。</Comment>
+      <DataType>tinyint(8)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="248" parent="238" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="249" parent="239" name="id">
+      <Position>1</Position>
+      <Comment>主键</Comment>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="250" parent="239" name="identity">
       <Position>2</Position>
       <Comment>身份标识</Comment>
       <DataType>varchar(30)|0</DataType>
@@ -955,7 +1021,7 @@
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8mb4_bin</Collation>
     </column>
-    <column id="241" parent="238" name="passkey">
+    <column id="251" parent="239" name="passkey">
       <Position>3</Position>
       <Comment>密码</Comment>
       <DataType>char(32)|0</DataType>
@@ -963,13 +1029,13 @@
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8mb4_bin</Collation>
     </column>
-    <column id="242" parent="238" name="nickname">
+    <column id="252" parent="239" name="nickname">
       <Position>4</Position>
       <Comment>昵称</Comment>
       <DataType>varchar(30)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="243" parent="238" name="gender">
+    <column id="253" parent="239" name="gender">
       <Position>5</Position>
       <Comment>性别</Comment>
       <DataType>tinyint(8)|0</DataType>
@@ -977,28 +1043,28 @@
       <DefaultExpression>&apos;-1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="244" parent="238" name="email">
+    <column id="254" parent="239" name="email">
       <Position>6</Position>
       <Comment>电邮</Comment>
       <DataType>varchar(100)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="245" parent="238" name="birth">
+    <column id="255" parent="239" name="birth">
       <Position>7</Position>
       <Comment>生日</Comment>
       <DataType>date|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="246" parent="238" name="identity">
+    <index id="256" parent="239" name="identity">
       <ColNames>identity</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="247" parent="238" name="PRIMARY">
+    <key id="257" parent="239" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="248" parent="238" name="identity">
+    <key id="258" parent="239" name="identity">
       <ColNames>identity</ColNames>
       <UnderlyingIndexName>identity</UnderlyingIndexName>
     </key>

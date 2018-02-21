@@ -19,7 +19,11 @@ class BaseController extends Controller {
         if($request->controller() == 'Login'){
             if(!empty(Session::get('identity'))) echo "<script>window.location.replace('/GuestBook/');</script>";
         }else{
-            if(empty(Session::get('identity'))) echo "<script>window.location.replace('/GuestBook/');</script>";
+            if(empty(Session::get('identity'))){
+                header('HTTP/1.1 403 Forbidden');
+                echo json_encode(['err_code'=>1, 'err_msg'=>'illegal', 'data'=>'']);
+                exit();
+            }
         }
 
         //echo "<script>alert('".$request->controller()."');</script>";
