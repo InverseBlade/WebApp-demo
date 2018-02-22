@@ -57,7 +57,7 @@ class LoginController extends BaseController {
             }
 
         }catch (Exception $e){
-            return $this->apiReturn(1, 'unknown');
+            return $this->apiReturn(1, $e->getMessage());
         }
     }
 
