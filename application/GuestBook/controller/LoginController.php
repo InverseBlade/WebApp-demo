@@ -94,26 +94,21 @@ class LoginController extends BaseController {
         $post  = $request->post();
 
         if(!empty($post['verify']) && !empty(Session::get('verification'))
-            && $post['verify'] == Session::get('verification')){
+            && $post['uname'].$post['verify'] == Session::get('verification')){
 
-            $user = UserModel::where(['identity'=>$post['uname']])
-                ->field('identity, passkey')
-                ->find();
-            if($user){
+            $data['passkey'] = md5(md5($post['password']));
+            $condition['identity'] = $post['uname'];
 
-                $user->passkey = md5(md5($post['password']));
-                if($user->save() !== false){
+            if(UserModel::where($condition)->update($data) !== false){
 
-                    Session::delete('verification');
-                    Session::set('identity', $user->identity);
+                Session::delete('verification');
+                Session::set('identity', $post['uname']);
 
-                    return $this->apiReturn(0, 'success');
-                }else{
+                return $this->apiReturn(0, 'success');
+            }else{
 
-                    return $this->apiReturn(1, '未知错误');
-                }
+                return $this->apiReturn(1, '未知错误');
             }
-            return $this->apiReturn(1, '用户不存在');
         }
         return $this->apiReturn(1, '验证码错误');
     }
@@ -206,7 +201,7 @@ class LoginController extends BaseController {
             $smtp->debug = false;//是否显示发送的调试信息
             $state = $smtp->sendmail($smtpemailto, $smtpusermail, $mailtitle, $mailcontent, $mailtype);
             if($state){
-                Session::set('verification', $salt);
+                Session::set('verification', $post['uname'].$salt);
                 return $this->apiReturn(0, 'success');
             }else{
                 return $this->apiReturn(1, 'failed');

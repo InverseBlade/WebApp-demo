@@ -228,9 +228,9 @@
                         Token.message.alert("修改成功！", function () {
                             BookApp.preloader.show();
                             window.setTimeout(function () {
-                                window.location.replace("/GuestBook/");
-                                BookApp.preloader.hide();
-                        }, 1500);
+                                    window.location.replace("/GuestBook/");
+                                    BookApp.preloader.hide();
+                            }, 1500);
                             Token.message.toast("跳转登录中，请稍等...");
                         });
                     });
