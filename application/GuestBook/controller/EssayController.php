@@ -13,6 +13,12 @@ use think\Session;
 
 class EssayController extends BaseController {
 
+    public function __construct(Request $request = null)
+    {
+        parent::__construct($request);
+        if(12 == strlen($request->action())) $this->detail($request->action());
+    }
+
     /**
      * 获取数据
      * @param Request $request
@@ -112,10 +118,9 @@ class EssayController extends BaseController {
         return $this->apiReturn(1, 'failed');
     }
 
-    public function detail(Request $request) {
-        $post = $request->param();
-
-        $hash = $post['hash'];
+    private function detail($hash) {
+        echo json_encode(['err_code'=>0, 'err_msg'=>'detail is ok!']);
+        exit();
     }
 
 }

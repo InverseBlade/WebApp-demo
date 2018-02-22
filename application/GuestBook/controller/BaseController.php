@@ -29,14 +29,14 @@ class BaseController extends Controller {
         //echo "<script>alert('".$request->controller()."');</script>";
     }
     
-    public function apiReturn($err_code=0, $err_msg='', $data=null, $status=200)
+    protected function apiReturn($err_code=0, $err_msg='', $data=null, $status=200)
     {
-        $data = [
+        $temp = [
             'err_code' => $err_code,
             'err_msg'  => $err_msg,
             'data'     => $data
         ];
-        return json($data, $status);
+        return json($temp, $status);
     }
 
 }
