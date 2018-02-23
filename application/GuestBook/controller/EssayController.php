@@ -124,22 +124,3 @@ class EssayController extends BaseController {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -55,12 +55,10 @@
                  result = JSON.parse(result);
 
                  if(result.err_code == 1){
-                     target.css('color', 'red');
-                     target.text('用户名已存在!');
+                     target.css('color', 'red').text('用户名已存在!');
                      p1 = false;
                  }else{
-                     target.css('color', 'green');
-                     target.text('用户名可用!');
+                     target.css('color', 'green').text('用户名可用!');
                      p1 = true;
                  }
             });
@@ -75,12 +73,10 @@
                     result = JSON.parse(result);
 
                     if(result.err_code == 1){
-                        target.css('color', 'red');
-                        target.text('昵称已存在!');
+                        target.css('color', 'red').text('昵称已存在!');
                         p2 = false;
                     }else{
-                        target.css('color', 'green');
-                        target.text('昵称可用!');
+                        target.css('color', 'green').text('昵称可用!');
                         p2 = true;
                     }
                 });
@@ -91,12 +87,10 @@
             var real = $$('input[name=password]').val();
             var target = $$('#checkPassword');
             if(val != real){
-                target.css('color', 'red');
-                target.text('密码不一致!');
+                target.css('color', 'red').text('密码不一致!');
                 p3 = false;
             }else{
-                target.css('color', 'green');
-                target.text('密码一致!');
+                target.css('color', 'green').text('密码一致!');
                 p3 = true;
             }
         });
@@ -178,14 +172,10 @@
                             //BookApp.dialog.alert("发送成功！");
                         }else{
                             BookApp.dialog.alert("发送失败，请重试！错误信息：" + result.err_msg);
-                            $thi.removeAttr('disabled');
-                            $thi.css('background-color', color);
-                            $thi.val("重新发送");
+                            $thi.removeAttr('disabled').css('background-color', color).val("重新发送");
                         }
                     });
-                $thi.attr('disabled', true);
-                $thi.css('background-color', 'gray');
-                $thi.val("已发送");
+                $thi.attr('disabled', true).css('background-color', 'gray').val("已发送");
             });
 
             $this.find('input[name=repassword]').on('input propertychange', function (e) {
@@ -194,12 +184,10 @@
                 var real = $this.find('input[name=password]').val();
                 var target = $this.find('#checkPassword');
                 if(val != real){
-                    target.css('color', 'red');
-                    target.text('密码不一致!');
+                    target.css('color', 'red').text('密码不一致!');
                     ifPass = false;
                 }else{
-                    target.css('color', 'green');
-                    target.text('密码一致!');
+                    target.css('color', 'green').text('密码一致!');
                     ifPass = true;
                 }
             });
