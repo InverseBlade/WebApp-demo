@@ -83,15 +83,14 @@ class EssayController extends BaseController {
         $post = $request->param();
         $hash = $post['hash'];
 
-        $model = new EssayModel();
-        $user_id = $model->where(['hash'=>$hash])->value('user_id');
-        $identity = UserModel::where(['id'=>$user_id])->value('identity');
+        $essay = EssayModel::where(['hash'=>$hash])->field('user_id')->find();
+        $identity = $essay->user->identity;
 
         if(empty($identity) || $identity != Session::get('identity')){
             return $this->apiReturn(1, 'illegal', '', 403);
         }
 
-        if($model->allowField('content')->save($post, ['hash'=>$hash]) !== false){
+        if($essay->allowField('content')->save($post, ['hash'=>$hash]) !== false){
             return $this->apiReturn(0, 'success');
         }
 
@@ -106,9 +105,8 @@ class EssayController extends BaseController {
     public function delete(Request $request) {
         $hash = $request->param('hash');
 
-        $model = new EssayModel();
-        $user_id = $model->where(['hash'=>$hash])->value('user_id');
-        $identity = UserModel::where(['id'=>$user_id])->value('identity');
+        $essay = EssayModel::where(['hash'=>$hash])->field('user_id')->find();
+        $identity = $essay->user->identity;
 
         if(empty($identity) || $identity != Session::get('identity')){
             return $this->apiReturn(1, 'illegal', '', 403);
