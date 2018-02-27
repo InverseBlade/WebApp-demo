@@ -39,7 +39,10 @@ class EssayController extends BaseController {
 
         $data = EssayModel
             ::where($condition)
-            ->field(true)     //为主页显示所需字段，可进一步简化
+            ->alias('e')
+            ->field('e.*')     //为主页显示所需字段，可进一步简化
+            ->join('__USER__ u', 'e.user_id = u.id')
+            ->field('u.nickname, u.identity as uname')
             ->order($order)
             ->page($page, 10)
             ->select();
