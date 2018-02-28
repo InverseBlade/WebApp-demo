@@ -8,6 +8,7 @@
 namespace app\GuestBook\controller;
 use app\GuestBook\model\Essay as EssayModel;
 use app\GuestBook\model\User as UserModel;
+use think\Exception;
 use think\Request;
 use think\Session;
 
@@ -83,18 +84,22 @@ class EssayController extends BaseController {
         $post = $request->param();
         $hash = $post['hash'];
 
-        $essay = EssayModel::where(['hash'=>$hash])->field('user_id')->find();
-        $identity = $essay->user->identity;
+        $err_msg = '';
+        try{
+            $essay = EssayModel::where(['hash'=>$hash])->field('user_id')->find();
+            $identity = $essay->user->identity;
 
-        if(empty($identity) || $identity != Session::get('identity')){
-            return $this->apiReturn(1, 'illegal', '', 403);
+            if(empty($identity) || $identity != Session::get('identity')){
+                return $this->apiReturn(1, 'illegal', '', 403);
+            }
+
+            if($essay->allowField('content')->save($post, ['hash'=>$hash]) !== false){
+                return $this->apiReturn(0, 'success');
+            }
+        }catch (Exception $e){
+            $err_msg = $e->getMessage();
         }
-
-        if($essay->allowField('content')->save($post, ['hash'=>$hash]) !== false){
-            return $this->apiReturn(0, 'success');
-        }
-
-        return $this->apiReturn(1, 'failed');
+        return $this->apiReturn(1, $err_msg, '', 500);
     }
 
     /**
@@ -105,18 +110,22 @@ class EssayController extends BaseController {
     public function delete(Request $request) {
         $hash = $request->param('hash');
 
-        $essay = EssayModel::where(['hash'=>$hash])->field('user_id')->find();
-        $identity = $essay->user->identity;
+        $err_msg = '';
+        try{
+            $essay = EssayModel::where(['hash'=>$hash])->field('user_id')->find();
+            $identity = $essay->user->identity;
 
-        if(empty($identity) || $identity != Session::get('identity')){
-            return $this->apiReturn(1, 'illegal', '', 403);
+            if(empty($identity) || $identity != Session::get('identity')){
+                return $this->apiReturn(1, 'illegal', '', 403);
+            }
+
+            if($essay->save(['status'=>2], ['hash'=>$hash]) !== false){
+                return $this->apiReturn(0, 'success');
+            }
+        }catch (Exception $e){
+            $err_msg = $e->getMessage();
         }
-
-        if($model->save(['status'=>2], ['hash'=>$hash]) !== false){
-            return $this->apiReturn(0, 'success');
-        }
-
-        return $this->apiReturn(1, 'failed');
+        return $this->apiReturn(1, $err_msg, '', 500);
     }
 
     private function detail($hash) {
