@@ -1,10 +1,8 @@
 (function (window) {
 
-    $$(document).on('page:init', '.page[data-name="about"]', function (e) {
-        //Token.message.alert("你好！")
-    });
-
-    function renderTab_1(target, render) {
+    (function () {
+        target = $$('.view-main').find('.components-list');
+        render = Template7.compile($$('script#tab-1-template').html());
         BookApp.request.post('/GuestBook/Essay/api',
             {
                 page : 1
@@ -31,63 +29,27 @@
                 }
                 target.append(html);
             });
-    }
+    })();
 
-    function renderTab_2(target, render) {
-        target.html(render());
-    }
+    $$('.view-main').find('a.tab-1').addClass('tab-link-active');
+    $$('a.tab-link').on('click', function (e) {
+        $this = $$(this);
 
-    function renderTab_3(target, render) {
-        target.html(render());
-    }
+        if($this.hasClass('tab-link-active')) return;
 
-    function mainTabController(target, template, button) {
-        var ifload = false;
-        var touchTime = new Date().getTime();
-        var render = Template7.compile(template.html());
-
-        function loadPageContent() {
-            if (ifload) return;
-            BookApp.preloader.show();
-            ifload = true;
-
-            window.setTimeout(function () {
-                switch (target.attr('id')) {
-                    case 'tab-1':
-                        renderTab_1(target, render);break;
-                    case 'tab-2':
-                        renderTab_2(target, render);break;
-                    case 'tab-3':
-                        renderTab_3(target, render);break;
-                }
-
-                BookApp.preloader.hide();
-                ifload = false;
-            }, 250);
+        if($this.hasClass('tab-1')){
+            obj = BookApp.tab.show('.view#tab-1');
+            $$(obj.newTabEl).find('a.tab-1').addClass('tab-link-active');
+            $$(obj.oldTabEl).find('a.tab-link-active').removeClass('tab-link-active');
+        }else if($this.hasClass('tab-2')){
+            obj = BookApp.tab.show('.view#tab-2');
+            $$(obj.newTabEl).find('a.tab-2').addClass('tab-link-active');
+            $$(obj.oldTabEl).find('a.tab-link-active').removeClass('tab-link-active');
+        }else{
+            obj = BookApp.tab.show('.view#tab-3');
+            $$(obj.newTabEl).find('a.tab-3').addClass('tab-link-active');
+            $$(obj.oldTabEl).find('a.tab-link-active').removeClass('tab-link-active');
         }
-
-        button.on('click', function (e) {
-            if (new Date().getTime() - touchTime < 250) {
-                target.html('');
-                loadPageContent();
-            } else {
-                touchTime = new Date().getTime();
-                if ('' == target.html().trim()) {
-                    loadPageContent();
-                }
-            }
-        });
-        if(target.attr('id') == 'tab-1'){
-            loadPageContent();
-        }
-    }
-
-    for(var i=1; i<=3; i++){
-        mainTabController(
-            $$('.page-content#tab-' + i),
-            $$('script#tab-' + i + '-template'),
-            $$('a[href="#tab-' + i + '"]')
-        );
-    }
+    });
 
 })(window);
