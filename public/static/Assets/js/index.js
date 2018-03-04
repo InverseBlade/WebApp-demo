@@ -34,22 +34,24 @@
     $$('.view-main').find('a.tab-1').addClass('tab-link-active');
     $$('a.tab-link').on('click', function (e) {
         $this = $$(this);
+        var obj, target;
 
         if($this.hasClass('tab-link-active')) return;
 
         if($this.hasClass('tab-1')){
-            obj = BookApp.tab.show('.view#tab-1');
-            $$(obj.newTabEl).find('a.tab-1').addClass('tab-link-active');
-            $$(obj.oldTabEl).find('a.tab-link-active').removeClass('tab-link-active');
+            target = '.view#tab-1';
         }else if($this.hasClass('tab-2')){
-            obj = BookApp.tab.show('.view#tab-2');
-            $$(obj.newTabEl).find('a.tab-2').addClass('tab-link-active');
-            $$(obj.oldTabEl).find('a.tab-link-active').removeClass('tab-link-active');
+            target = '.view#tab-2';
         }else{
-            obj = BookApp.tab.show('.view#tab-3');
-            $$(obj.newTabEl).find('a.tab-3').addClass('tab-link-active');
-            $$(obj.oldTabEl).find('a.tab-link-active').removeClass('tab-link-active');
+            target = '.view#tab-3';
         }
+        obj = BookApp.tab.show(target);
+        $$(obj.newTabEl).find('a.' + $this.attr('class').split(" ")[1]).addClass('tab-link-active');
+        $$(obj.oldTabEl).find('a.tab-link-active').removeClass('tab-link-active');
+    });
+    
+    $$('.popup-publish').on('popup:opened', function (e) {
+        $$(this).find('textarea').focus();
     });
 
 })(window);
