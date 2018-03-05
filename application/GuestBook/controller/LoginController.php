@@ -81,7 +81,7 @@ class LoginController extends BaseController {
             return $this->apiReturn(1,'existed', $email);
         }else{
 
-            return $this->apiReturn(0, 'none');
+            return $this->apiReturn(0, 'none', '');
         }
     }
 

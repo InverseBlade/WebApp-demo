@@ -135,13 +135,13 @@
                         result = JSON.parse(result);
 
                         if(result.err_code == 0){
-                            $this.find('#checkUname').css('color', 'red').text('用户名不存在！');
+                            $$('div.popup').find('#checkUname').css('color', 'red').text('用户名不存在！');
                             return;
                         }
                         BookApp.views.modify.router.navigate('/modify/?email=' + result.data + '&uname=' + uname);
                     });
             });
-            $this.find('input[name=uname]').on('input propertychange', function () {
+            $$('div.popup').find('input[name=uname]').on('input propertychange', function () {
                 $$(this).parent().find('#checkUname').text('');
             });
         });
