@@ -122,13 +122,13 @@
     });
 
     //找回密码首页
-    $$(document).on('page:init page:reinit', '.page[data-name=modify-uname]',
+    $$(document).on('page:init', '.page[data-name=modify-uname]',
         function (e) {
             $this = $$(this);
             $this.find('form').on('submit', function (e) {
                 e.preventDefault();
 
-                var uname = $this.find('input[name=uname]').val();
+                var uname = $$('div.popup').find('input[name=uname]').val();
                 BookApp.request.post('/GuestBook/Login/checkId',
                     {uname : uname},
                     function (result) {
