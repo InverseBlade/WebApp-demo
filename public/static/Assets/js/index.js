@@ -91,54 +91,77 @@
     $$(document).on('page:init', '.page[data-name=essay-manage]', function (e) {
         target = $$(this).find('.components-list');
         render = Template7.compile($$('script#written-template').html());
-        BookApp.request.post('/GuestBook/User/written',
-            {
-                page : 1,
-            },
-            function (result) {
-                result = JSON.parse(result);
-                var html = '';
 
-                if(result.err_code == 1){
-                    BookApp.dialog.alert("Error: " + result.err_msg);
-                    return;
-                }
-                for(var i=0; i<result.data.length; i++){
-                    item = result.data[i];
+        function render_page(callback) {
+            BookApp.request.post('/GuestBook/User/written',
+                {
+                    page : 1,
+                },
+                function (result) {
+                    result = JSON.parse(result);
+                    var html = '';
 
-                    item.uname = nickName;
-                    item.ltime = item.create_time;
-                    item.praise_count = 38;
-                    item.comments_count = 250;
-
-                    if(item.status == 1){
-                        item.isDelete = "删除";
-                    }else{
-                        item.isDelete = "还原";
+                    if(result.err_code == 1){
+                        BookApp.dialog.alert("Error: " + result.err_msg);
+                        return;
                     }
+                    for(var i=0; i<result.data.length; i++){
+                        item = result.data[i];
 
-                    html += render(item);
-                }
-                target.append(html);
+                        item.uname = nickName;
+                        item.ltime = item.create_time;
+                        item.praise_count = 38;
+                        item.comments_count = 250;
 
-                $$('a.item-delete').on('click', function (e) {
-                    var hash = $$(this).parent().attr('data-hash');
+                        if(item.status == 1){
+                            item.isDelete = "删除";
+                        }else{
+                            item.isDelete = "还原";
+                        }
 
-                    BookApp.request.post('/GuestBook/essay/delete',
-                        {
-                            hash : hash,
-                        },
-                        function (result) {
-                            result = JSON.parse(result);
-
-                            if(result.err_code == 1){
-                                BookApp.dialog.alert("Error: " + result.err_msg);
-                                return;
-                            }
-                            Token.message.alert("成功删除!");
-                        });
+                        html += render(item);
+                    }
+                    target.append(html);
+                    if(callback) callback();
                 });
+        }
+
+        render_page(function () {
+            $$('a.item-delete').on('click', function (e) {
+                var $this = $$(this);
+                var hash = $this.parent().attr('data-hash');
+                var status = 2;
+
+                if($this.html() == '还原'){
+                    status = 1;
+                }else{
+                    status = 2;
+                }
+
+                BookApp.request.post('/GuestBook/essay/delete',
+                    {
+                        hash : hash,
+                        status : status
+                    },
+                    function (result) {
+                        result = JSON.parse(result);
+
+                        if(result.err_code == 1){
+                            BookApp.dialog.alert("Error: " + result.err_msg);
+                            return;
+                        }
+                        var notice;
+                        if(status == 1){
+                            $this.html('删除');
+                            notice = "成功还原!";
+                        } else {
+                            $this.html('还原');
+                            notice = "成功删除!";
+                        }
+                        Token.message.alert(notice);
+                    });
             });
+        });
     });
 
 })(window);

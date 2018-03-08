@@ -16,7 +16,7 @@ class UserController extends BaseController {
         $page = $request->param('page');
 
         $user = UserModel::where(['identity'=>session('identity')])->field('id')->find();
-        $essays = $user->essays()->page($page, 10)->select();
+        $essays = $user->essays()->order('create_time desc')->page($page, 10)->select();
 
         return $this->apiReturn(0, '', $essays);
     }

@@ -36,7 +36,7 @@ class EssayController extends BaseController {
         $page = $post['page'];
 
         $condition['status'] = 1;
-        $order = 'update_time desc';
+        $order = 'create_time desc';
 
         $data = EssayModel
             ::where($condition)
@@ -109,6 +109,7 @@ class EssayController extends BaseController {
      */
     public function delete(Request $request) {
         $hash = $request->param('hash');
+        $status = $request->param('status');
 
         $err_msg = '';
         try{
@@ -119,7 +120,7 @@ class EssayController extends BaseController {
                 return $this->apiReturn(1, 'illegal', '', 403);
             }
 
-            if($essay->save(['status'=>2], ['hash'=>$hash]) !== false){
+            if($essay->save(['status'=>$status], ['hash'=>$hash]) !== false){
                 return $this->apiReturn(0, 'success');
             }
         }catch (Exception $e){
