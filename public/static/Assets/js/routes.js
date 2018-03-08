@@ -15,6 +15,11 @@ var routes = [
     {
         path : '/modify/',
         url  : 'login/modify.html'
+    },
+
+    {
+        path : '/essay_manage/',
+        url  : 'index/essay_manage.html'
     }
 ];
 

@@ -18,7 +18,9 @@
                 for(var i=0; i<result.data.length; i++){
                     item = result.data[i];
 
-                    if(item.nickname.trim().length != 0){
+                    if(item.nickname.trim().length == 0){
+                        item.uname = '匿名用户';
+                    }else{
                         item.uname = item.nickname;
                     }
                     item.ltime = item.create_time;
@@ -81,6 +83,60 @@
                 Token.message.alert("留言发布成功！", function () {
                     target.val('');
                     BookApp.popup.close('.popup');
+                });
+            });
+    });
+
+    //留言管理页面
+    $$(document).on('page:init', '.page[data-name=essay-manage]', function (e) {
+        target = $$(this).find('.components-list');
+        render = Template7.compile($$('script#written-template').html());
+        BookApp.request.post('/GuestBook/User/written',
+            {
+                page : 1,
+            },
+            function (result) {
+                result = JSON.parse(result);
+                var html = '';
+
+                if(result.err_code == 1){
+                    BookApp.dialog.alert("Error: " + result.err_msg);
+                    return;
+                }
+                for(var i=0; i<result.data.length; i++){
+                    item = result.data[i];
+
+                    item.uname = nickName;
+                    item.ltime = item.create_time;
+                    item.praise_count = 38;
+                    item.comments_count = 250;
+
+                    if(item.status == 1){
+                        item.isDelete = "删除";
+                    }else{
+                        item.isDelete = "还原";
+                    }
+
+                    html += render(item);
+                }
+                target.append(html);
+
+                $$('a.item-delete').on('click', function (e) {
+                    var hash = $$(this).parent().attr('data-hash');
+
+                    BookApp.request.post('/GuestBook/essay/delete',
+                        {
+                            hash : hash,
+                        },
+                        function (result) {
+                            result = JSON.parse(result);
+
+                            if(result.err_code == 1){
+                                BookApp.dialog.alert("Error: " + result.err_msg);
+                                return;
+                            }
+                            Token.message.alert("成功删除!");
+                        });
                 });
             });
     });

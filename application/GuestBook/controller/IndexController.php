@@ -31,6 +31,7 @@ class IndexController extends Controller {
             if(!$info) exit();
 
             $this->assign('nickname', $info['nickname']);
+            $this->assign('uname', $identity);
             return $this->fetch();
         }
 
