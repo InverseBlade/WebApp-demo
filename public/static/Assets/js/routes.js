@@ -20,6 +20,11 @@ var routes = [
     {
         path : '/essay_manage/',
         url  : 'index/essay_manage.html'
+    },
+
+    {
+        path : '/essay_edit',
+        url  : 'index/essay_edit.html'
     }
 ];
 
